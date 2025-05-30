@@ -5,35 +5,16 @@ Follow these steps **after connecting** to upgrade your shell session to behave 
 
 ---
 
-## 1. Allocate a Proper Pseudo-Terminal (PTY)
+## Full Upgrade Command Block
 
-Run this command to spawn a fully interactive bash shell with a PTY:
-
-```bash
-python3 -c 'import pty; pty.spawn("/bin/bash")'
-```
-
-If Python 3 is unavailable, try:
+Run all of the following commands together to upgrade your shell:
 
 ```bash
-python -c 'import pty; pty.spawn("/bin/bash")'
-```
-2. Set Essential Environment Variables
-
-Export important environment variables to enable terminal features and proper shell behavior:
-
-```bash
+python3 -c 'import pty; pty.spawn("/bin/bash")' || python -c 'import pty; pty.spawn("/bin/bash")'
 export TERM=xterm-256color
 export SHELL=/bin/bash
 export HOME=/home/$(whoami)
 export USER=$(whoami)
 export PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin
-```
-3. Start Bash as a Login Interactive Shell
-
-Run bash with login and interactive flags to source user profile scripts and initialize the environment correctly:
-
-```bash
 bash --login -i
-```
-
+reset
