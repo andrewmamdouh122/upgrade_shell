@@ -1,4 +1,15 @@
-```bash
+# Upgrading a Basic Reverse Shell to a Fully Interactive Ubuntu Shell
 
-hi
+After successfully gaining access to a target machine via a reverse shell, the shell environment is often limited and lacks interactivity and familiar terminal behavior.  
+Follow these steps **after connecting** to upgrade your shell session to behave like a native Ubuntu terminal.
+
+---
+
+## 1. Allocate a Proper Pseudo-Terminal (PTY)
+
+Run this command to spawn a fully interactive bash shell with a PTY:
+
+```bash
+python3 -c 'import pty; pty.spawn("/bin/bash")'
+
 ```
