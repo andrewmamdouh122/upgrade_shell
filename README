@@ -9,7 +9,7 @@ Follow these steps **after connecting** to upgrade your shell session to behave 
 
 Run all of the following commands together to upgrade your shell:
 
-```bash
+```
 python3 -c 'import pty; pty.spawn("/bin/bash")' || python -c 'import pty; pty.spawn("/bin/bash")'
 export TERM=xterm-256color
 export SHELL=/bin/bash
@@ -18,3 +18,4 @@ export USER=$(whoami)
 export PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin
 bash --login -i
 reset
+```
