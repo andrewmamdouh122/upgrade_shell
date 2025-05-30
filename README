@@ -1,27 +1,39 @@
-# How to Upgrade a Basic Reverse Shell to a Fully Interactive Ubuntu Shell
+# Upgrading a Basic Reverse Shell to a Fully Interactive Ubuntu Shell
 
-When you gain access to a target machine via a reverse shell, the default shell environment is often limited: no terminal features, no command history, no job control, and programs like `clear` or `vim` may misbehave.
-
-This guide explains how to upgrade a basic reverse shell session into a fully interactive Ubuntu shell **after gaining access** — without modifying the original reverse shell code.
-
----
-
-## Why Upgrade the Shell?
-
-- **Proper terminal behavior:** Supports Ctrl+C, Ctrl+Z, arrow keys, tab completion, etc.
-- **Full environment:** Loads user profiles and environment variables like a normal login shell.
-- **Better usability:** Supports advanced shell features, color prompts, aliases, and job control.
-- **Smooth program operation:** Programs like `clear`, `nano`, `vim`, and `top` work correctly.
+After successfully gaining access to a target machine via a reverse shell, the shell environment is often limited and lacks interactivity and familiar terminal behavior.  
+Follow these steps **after connecting** to upgrade your shell session to behave like a native Ubuntu terminal.
 
 ---
 
-## Step-by-Step Instructions
+## 1. Allocate a Proper Pseudo-Terminal (PTY)
 
-### 1. Allocate a Pseudo-Terminal (PTY)
-
-A PTY is necessary for interactive shell features.
-
-Run this command inside your current shell session to spawn a bash shell with a PTY:
+Run this command to spawn a fully interactive bash shell with a PTY:
 
 ```bash
 python3 -c 'import pty; pty.spawn("/bin/bash")'
+```
+
+If Python 3 is unavailable, try:
+
+```bash
+python -c 'import pty; pty.spawn("/bin/bash")'
+```
+2. Set Essential Environment Variables
+
+Export important environment variables to enable terminal features and proper shell behavior:
+
+```bash
+export TERM=xterm-256color
+export SHELL=/bin/bash
+export HOME=/home/$(whoami)
+export USER=$(whoami)
+export PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin
+```
+3. Start Bash as a Login Interactive Shell
+
+Run bash with login and interactive flags to source user profile scripts and initialize the environment correctly:
+
+```bash
+bash --login -i
+```
+
